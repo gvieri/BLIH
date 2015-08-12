@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="./style.css" type="text/css">
+
+</head>
+
+<body>
+<div id="headdiv">
+<center>
+<span id="pagetitle">
+BLIH client lite
+</span>
+</center> 
+</div> 
+
+<div id="datadiv">
+<div id="formdiv">
+<form action="./index.php" method="post">
+<fieldset >
+<legend>Position</legend>
+<div>
+<label for="latidude" >Latitude: </label>
+<input type="text" id="latidude" name="latidude" value="" tabindex="1">
+</div>
+<div>
+<label for="longitude">Longitude: </label>
+<input type="text" id="longitude" name="longitude" value=""  tabindex="2">
+</div>
+<div>
+<label for="altitude" >Altitude: </label>
+<input type="text" id="altitude" name="altitude" value="" tabindex="3">
+</div>
+</fieldset>
+
+<fieldset id="msginfo">
+<legend>data</legend>
+<div>
+<label for="datamessage" accesskey="m">Data Message: </label>
+<textarea id="datamessage" rows="3" cols="20" name="datamessage"></textarea>
+</div>
+<div id="formbutton">
+<input type="submit" value="Submit" tabindex="4"> <input type="Reset" tabindex="5">
+</div>
+</fieldset>
+
+</form>
+</div>
+</div>
+<div id="footdiv">
+</div> 
+
+</body>
+</html>
+
