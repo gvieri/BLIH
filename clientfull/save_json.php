@@ -1,6 +1,7 @@
 <?php
+require_once("./db_conf.php"); 
 $stringData = $_GET["data"];
-$db = mysqli_connect("localhost","blih","pippo","blih");
+$db = mysqli_connect($dbhost,$dbuser,$dbpwd,$dbname);
             if (!$db) {
                 die('Could not connect to db: ' . mysql_error());
             }
