@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ *  @Author:  Vieri Giovambattista
+ *  @Version: 0,0
+ *  @License: AGPL
+ *  @Contact: 
+ *
+ */
+
+
 	require_once("./db_conf.php");
  
 	    //Create Database connection

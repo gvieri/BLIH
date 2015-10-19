@@ -1,0 +1,11 @@
+********** todo list ************
+
+* insert a proper header in every files
+
+* every php script must refer to configurations scripts 
+
+* installation scripts 
+
+* user documentation
+
+
