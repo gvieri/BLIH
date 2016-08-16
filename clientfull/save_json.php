@@ -21,6 +21,9 @@
 		$lat=$obj['latlng']['lat']; 
 		$lng=$obj['latlng']['lng']; 
 		$message=$obj['message'];
+		$lat=mysqli_real_escape_string($db, $lat);
+		$lng=mysqli_real_escape_string($db, $lng);
+		$message=mysqli_real_escape_string($db, $message);
 		$insert = "insert into geo_data (lat,lng, message) values ('$lat','$lng','$message')";
 		if (mysqli_query($db,$insert))  {
 				// ok
