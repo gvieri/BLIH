@@ -1,3 +1,20 @@
+/***
+
+BLIH (c) Giovambattista Vieri 2015,2016
+
+All rights reserved
+
+https://github.com/gvieri/BLIH/
+
+configuration.js
+
+This file contains configuration data.
+
+License: see github pages
+
+*/
+
+
 	$(document).ready(function() {
 		var poi;
 		var boxBounds;
@@ -15,8 +32,8 @@
 		initLng= localStorage.getItem("initLng");
 		initZoom=localStorage.getItem("initZoom");
 		if((initLat==null) && (initLng==null)) { 
-			initLat=41.954;
-			initLng=12.547;
+			initLat=initLatConfVal;
+			initLng=initLngConfVal;
 		}
 	
 		L.Control.myControl = L.Control.extend({
@@ -103,10 +120,10 @@
 		if (initZoom==null) { initZoom = 13 } 
 		var mappa= L.map('mappetta').setView([initLat,initLng],13);
 		L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                                                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                                                '',
-			maxZoom: 18
+			attribution: attributionCopyConfVal +
+                                                attributionLicenseConfVal +
+                                                attributionThirdVal,
+			maxZoom: maxZoomConfVal 
 		}).addTo(mappa);
 
 		var poppup = L.popup(); 
@@ -120,7 +137,7 @@
 					if (result === null) {
 					} else {
 						
-						console.log("e = " ,this.latlng);
+						if (consoleLoggingFlag )  { console.log("e = " ,this.latlng); } 
 						marker=L.marker( this.latlng).on('click',onClickMarker);
 						marker.on('mouseover',onMouseOverMarker);
 						marker.on('mouseout',onMouseOutMarker);
@@ -129,11 +146,11 @@
 						marker.addTo(mappa);
 						var m; 
 						m=new myMarker(this.latlng,result);
-			console.log("m",m);
+						if (consoleLoggingFlag )  { console.log("m",m); } 
 						myMarkers.push(m);
 						marker.mymarker=m; 
 						localStorage.setItem("myMarkers", JSON.stringify(myMarkers));
-			console.log(JSON.stringify(myMarkers));
+						if (consoleLoggingFlag )  { console.log(JSON.stringify(myMarkers)); }
 					}
 				}
 			});
@@ -171,41 +188,47 @@
 		function onClickMarker(e) {
 			var IdToRemove;
 			mappa.removeLayer(e.target);
-			console.log("marker: called onClickMarker");
+			if (consoleLoggingFlag )  { console.log("marker: called onClickMarker"); } 
 			IdToRemove = e.target.mymarker.Id;
-			console.log("markerid="+IdToRemove);
-			
-			console.log(JSON.stringify(myMarkers));
+			if (consoleLoggingFlag )  { 
+				console.log("markerid="+IdToRemove);  
+				console.log(JSON.stringify(myMarkers));
+			}
 			/// scansiona l'array di marcatori per trovare l'id... 
 			for(var i = myMarkers.length - 1; i >= 0; i--) {
 			    if(myMarkers[i].Id == IdToRemove) {
-			       console.log("bingo");
+			       if (consoleLoggingFlag )  { console.log("bingo"); } 
 			       myMarkers.splice(i, 1);
 			    }
 			}
-			console.log(JSON.stringify(myMarkers));
+			if (consoleLoggingFlag )  { console.log(JSON.stringify(myMarkers)); } 
 			localStorage.setItem("myMarkers", JSON.stringify(myMarkers));
 			delete(e.target.mymarker);
 
 		}
 		function onMouseOverMarker(e) {
-//			console.log("marker: called onMouseOverMarker");
-//			console.log("marker",this.messaggio);
-//			console.log("e = ",e) ;
+			if (consoleLoggingFlag )  {
+				console.log("marker: called onMouseOverMarker");
+				console.log("marker",this.messaggio);
+				console.log("e = ",e) ;
+			} 
 			e.target.openPopup();
 		}
 		function onMouseOutMarker(e) {
-//			console.log("marker: called onMouseOutMarker");
-//			console.log("marker",this.messaggio);
+			if (consoleLoggingFlag )  {
+				console.log("marker: called onMouseOutMarker");
+				console.log("marker",this.messaggio);
+			}
 			e.target.closePopup();
 		}
 
 
 		function saveOnServer(e) {
 //			var data= JSON.stringify(myMarkers);
-			
-			console.log("marker: called saveOnServer");
-			console.log("e = ",e) ;
+			if (consoleLoggingFlag )  {
+				console.log("marker: called saveOnServer");
+				console.log("e = ",e) ;
+			}
 			$.ajax
 			    ({
 				type: "GET",
@@ -217,7 +240,8 @@
 				failure: function() {alert("Error!");}
 			    });
 			// i will assume that everything is ok 
-			console.log("marker len=", myMarkers.length);
+			
+			if (consoleLoggingFlag )  { console.log("marker len=", myMarkers.length); }
 /*
 			for(var i = 0 ; i< myMarkers.length ;  i++) {
 				console.log("going to remove", myMarkers[i]);
